@@ -38,6 +38,8 @@ docker compose exec web python manage.py migrate
 
 W kontenerze katalog roboczy to **`/app`** (WORKDIR), a kod projektu leży w tym katalogu — pakiet Django **`app/`** to np. `/app/app/` wewnątrz obrazu.
 
+Obraz Dockera instaluje **`requirements-dev.txt`** (w tym **django-debug-toolbar**), bo Compose używa **`app.settings.local`**, a toolbar jest włączany tylko w tym profilu. Obraz produkcyjny zwykle buduje się tylko z **`requirements.txt`** i **`app.settings.production`** (bez toolbara).
+
 ## Ustawienia
 
 | Moduł | Zastosowanie |
