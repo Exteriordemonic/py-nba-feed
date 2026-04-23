@@ -10,7 +10,8 @@ venv/
 .vscode/
 *.sqlite3
 db.sqlite3
-media/
+media/*
+!media/.gitkeep
 staticfiles/
 .pytest_cache/
 .mypy_cache/
