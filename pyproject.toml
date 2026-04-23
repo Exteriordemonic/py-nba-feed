@@ -1,0 +1,31 @@
+[tool.black]
+line-length = 88
+target-version = ["py311"]
+extend-exclude = '''
+/(
+  migrations
+  | \\.venv
+  | venv
+  | __pycache__
+  | node_modules
+)/'''
+
+[tool.pytest.ini_options]
+DJANGO_SETTINGS_MODULE = "py_nba_feed.settings.local"
+python_files = ["tests.py", "test_*.py", "*_tests.py"]
+addopts = "-ra --strict-markers"
+
+[tool.flake8]
+max-line-length = 88
+extend-ignore = ["E203", "W503"]
+exclude = [
+    ".venv",
+    "venv",
+    "__pycache__",
+    "migrations",
+    "manage.py",
+    "py_nba_feed/settings",
+    "py_nba_feed/wsgi.py",
+    "py_nba_feed/asgi.py",
+    "py_nba_feed/urls.py",
+]
