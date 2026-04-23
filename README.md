@@ -1,15 +1,16 @@
 # py-nba-feed
 
-Django project package **`py_nba_feed`**, dev-ready layout with split settings, custom user model, django-environ, pytest, and django-debug-toolbar.
+Repozytorium **py-nba-feed**: pakiet konfiguracyjny Django ma nazwę **`app`** (`app.settings`, `app.urls`, widoki i API w tym samym pakiecie). Oprócz tego aplikacja **`user`** (własny model użytkownika). **DRF**, **PostgreSQL** (`DATABASE_URL`), **Docker Compose**, **Swagger** (drf-spectacular), django-environ, pytest, django-debug-toolbar.
 
 ## Stack
 
-- Python **3.11+** (tested with 3.11)
+- Python **3.11+**
 - Django **5.2**
-- SQLite locally; optional **`DATABASE_URL`** (e.g. Postgres) for production
-- **django-environ** for configuration
+- **DRF** + **drf-spectacular**
+- **PostgreSQL 16** przy ustawionym `DATABASE_URL`; inaczej **SQLite**
+- **django-environ**
 
-## Setup
+## Lokalnie (bez Dockera)
 
 ```powershell
 python -m venv .venv
@@ -19,9 +20,7 @@ pip install -r requirements-dev.txt
 copy .env.example .env
 ```
 
-Edit `.env` if needed (at minimum set a unique `SECRET_KEY` before any shared deploy).
-
-## Run
+Bez `DATABASE_URL` w `.env` używany jest **SQLite**. Dla Postgresa na hoście odkomentuj `DATABASE_URL` w `.env`.
 
 ```powershell
 python manage.py migrate
@@ -29,25 +28,32 @@ python manage.py createsuperuser
 python manage.py runserver
 ```
 
-- Admin: http://127.0.0.1:8000/admin/
-- Health: http://127.0.0.1:8000/health/
-- Debug toolbar: http://127.0.0.1:8000/__debug__/ (only when `DEBUG=True`)
-
-## Settings modules
-
-| Module | Use |
-|--------|-----|
-| `py_nba_feed.settings.local` | Local development (`manage.py` default) |
-| `py_nba_feed.settings.production` | Production (`wsgi.py` / `asgi.py` default if `DJANGO_SETTINGS_MODULE` is unset) |
-
-Override for ad-hoc commands:
+## Docker Compose
 
 ```powershell
-$env:DJANGO_SETTINGS_MODULE = "py_nba_feed.settings.production"
-python manage.py check
+copy .env.example .env
+docker compose up --build
+docker compose exec web python manage.py migrate
 ```
 
-## Tests and lint
+W kontenerze katalog roboczy to **`/app`** (WORKDIR), a kod projektu leży w tym katalogu — pakiet Django **`app/`** to np. `/app/app/` wewnątrz obrazu.
+
+## Ustawienia
+
+| Moduł | Zastosowanie |
+|--------|----------------|
+| `app.settings.local` | Domyślnie w `manage.py` i w Compose |
+| `app.settings.production` | Domyślnie w `app.wsgi` / `app.asgi`, jeśli nie ustawisz `DJANGO_SETTINGS_MODULE` |
+
+## Endpointy
+
+- http://127.0.0.1:8000/health/
+- http://127.0.0.1:8000/api/v1/health/
+- Swagger: http://127.0.0.1:8000/api/schema/swagger-ui/
+
+Baza w Compose: **`py_nba_feed`** (nazwa bazy w Postgresie; to nie jest nazwa pakietu Pythona).
+
+## Testy
 
 ```powershell
 pytest
@@ -55,13 +61,14 @@ black .
 flake8 .
 ```
 
-## Layout
+## Układ katalogów
 
 ```
 py-nba-feed/
-├── app/                 # Main app (health route)
-├── user/                # Custom user (`AUTH_USER_MODEL`)
-├── py_nba_feed/         # Project config + settings package
+├── app/                 # Konfiguracja Django: settings, urls, wsgi, asgi, views, api_urls
+├── user/
+├── docker-compose.yml
+├── Dockerfile
 ├── templates/
 ├── static/
 ├── media/
@@ -73,15 +80,6 @@ py-nba-feed/
 
 ## Git flow
 
-Initial work should live on **`main`** with a clean first commit, then:
-
 ```powershell
 git flow init -d
 ```
-
-If [git-flow (AVH edition)](https://github.com/petervanderdoes/gitflow-avh/wiki/Windows) is not installed, install it first or use Git’s native branching; the defaults are production branch `main`, development branch `develop`, and prefixes `feature/`, `release/`, `hotfix/`.
-
-## Production notes
-
-- Set **`SECRET_KEY`**, **`ALLOWED_HOSTS`**, and **`DATABASE_URL`** (if not using the default SQLite file) via environment or `.env` as appropriate for your host.
-- Configure HTTPS at the proxy; `production.py` enables secure cookie flags and `SECURE_PROXY_SSL_HEADER` for typical TLS termination.

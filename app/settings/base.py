@@ -1,5 +1,5 @@
 """
-Shared Django settings for py_nba_feed.
+Shared Django settings for py-nba-feed (package ``app``).
 """
 
 from pathlib import Path
@@ -20,8 +20,9 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    "rest_framework",
+    "drf_spectacular",
     "debug_toolbar",
-    "app",
     "user",
 ]
 
@@ -36,7 +37,7 @@ MIDDLEWARE = [
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
 ]
 
-ROOT_URLCONF = "py_nba_feed.urls"
+ROOT_URLCONF = "app.urls"
 
 TEMPLATES = [
     {
@@ -53,8 +54,8 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = "py_nba_feed.wsgi.application"
-ASGI_APPLICATION = "py_nba_feed.asgi.application"
+WSGI_APPLICATION = "app.wsgi.application"
+ASGI_APPLICATION = "app.asgi.application"
 
 AUTH_PASSWORD_VALIDATORS = [
     {
@@ -88,3 +89,17 @@ MEDIA_ROOT = BASE_DIR / "media"
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 AUTH_USER_MODEL = "user.User"
+
+REST_FRAMEWORK = {
+    "DEFAULT_PERMISSION_CLASSES": [
+        "rest_framework.permissions.AllowAny",
+    ],
+    "DEFAULT_SCHEMA_CLASS": "drf_spectacular.openapi.AutoSchema",
+}
+
+SPECTACULAR_SETTINGS = {
+    "TITLE": "py-nba-feed API",
+    "DESCRIPTION": "HTTP API for py-nba-feed",
+    "VERSION": "1.0.0",
+    "SERVE_INCLUDE_SCHEMA": False,
+}

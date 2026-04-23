@@ -11,7 +11,7 @@ extend-exclude = '''
 )/'''
 
 [tool.pytest.ini_options]
-DJANGO_SETTINGS_MODULE = "py_nba_feed.settings.local"
+DJANGO_SETTINGS_MODULE = "app.settings.local"
 python_files = ["tests.py", "test_*.py", "*_tests.py"]
 addopts = "-ra --strict-markers"
 
@@ -24,8 +24,8 @@ exclude = [
     "__pycache__",
     "migrations",
     "manage.py",
-    "py_nba_feed/settings",
-    "py_nba_feed/wsgi.py",
-    "py_nba_feed/asgi.py",
-    "py_nba_feed/urls.py",
+    "app/settings",
+    "app/wsgi.py",
+    "app/asgi.py",
+    "app/urls.py",
 ]
