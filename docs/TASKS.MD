@@ -6,7 +6,7 @@
 
 ---
 
-#[ ] TASK 01 — Django Project Setup
+#[X] TASK 01 — Django Project Setup
 
 ## Branch
 `git flow feature start project-setup`
