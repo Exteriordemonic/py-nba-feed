@@ -13,7 +13,7 @@
 
 ## Acceptance Criteria
 - Django project is initialized with a virtual environment.
-- `djangorestframework`, `psycopg2`, `djangorestframework-simplejwt`, `python-dotenv` are installed and listed in `requirements.txt`.
+- `djangorestframework`, `psycopg2`, `djangorestframework-simplejwt`, `django-environ` are installed and listed in `requirements.txt`.
 - PostgreSQL database is configured via environment variables (`.env`).
 - Project runs locally with `python manage.py runserver` without errors.
 - `.env.example` file exists with all required keys listed.
