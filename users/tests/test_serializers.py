@@ -4,6 +4,7 @@ import pytest
 from users.serializers import UserSerializer
 
 
+@pytest.mark.django_db
 def test_valid_password():
     data = {
         "username": "test_uesr",
@@ -16,6 +17,7 @@ def test_valid_password():
     assert serializer.is_valid()
 
 
+@pytest.mark.django_db
 def test_short_password():
     data = {
         "username": "test_uesr",
