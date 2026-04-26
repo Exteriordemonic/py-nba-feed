@@ -4,7 +4,7 @@ from app.views import ApiHealthView
 
 urlpatterns = [
     path("v1/health/", ApiHealthView.as_view(), name="api-v1-health"),
-    path("users/", include("users.urls")),
+    path("auth/", include("users.urls")),
     path("players/", include("players.urls")),
     path("teams/", include("teams.urls")),
     path("subscriptions/", include("subscriptions.urls")),
