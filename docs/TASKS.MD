@@ -21,7 +21,7 @@
 
 ---
 
-#[ ] TASK 02 — Project Structure Setup
+#[X] TASK 02 — Project Structure Setup
 
 ## Branch
 `git flow feature start project-structure`
