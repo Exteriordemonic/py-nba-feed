@@ -10,11 +10,6 @@ extend-exclude = '''
   | node_modules
 )/'''
 
-[tool.pytest.ini_options]
-DJANGO_SETTINGS_MODULE = "app.settings.local"
-python_files = ["tests.py", "test_*.py", "*_tests.py"]
-addopts = "-ra --strict-markers"
-
 [tool.flake8]
 max-line-length = 88
 extend-ignore = ["E203", "W503"]
