@@ -1,6 +1,6 @@
 # py-nba-feed
 
-Repozytorium **py-nba-feed**: pakiet konfiguracyjny Django ma nazwę **`app`** (`app.settings`, `app.urls`, widoki i API w tym samym pakiecie). Oprócz tego aplikacja **`user`** (własny model użytkownika). **DRF**, **PostgreSQL** (`DATABASE_URL`), **Docker Compose**, **Swagger** (drf-spectacular), django-environ, pytest, django-debug-toolbar.
+Repozytorium **py-nba-feed**: pakiet konfiguracyjny Django ma nazwę **`app`** (`app.settings`, `app.urls`, widoki i API w tym samym pakiecie). Oprócz tego aplikacja **`users`** (własny model użytkownika). **DRF**, **PostgreSQL** (`DATABASE_URL`), **Docker Compose**, **Swagger** (drf-spectacular), django-environ, pytest, django-debug-toolbar.
 
 ## Stack
 
@@ -68,7 +68,7 @@ flake8 .
 ```
 py-nba-feed/
 ├── app/                 # Konfiguracja Django: settings, urls, wsgi, asgi, views, api_urls
-├── user/
+├── users/
 ├── docker-compose.yml
 ├── Dockerfile
 ├── templates/
